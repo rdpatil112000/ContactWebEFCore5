@@ -15,7 +15,7 @@ namespace ContactWebModels
         [Display(Name = "Last Name")]
         [Required(ErrorMessage = "Last Name is required")]
         [StringLength(ContactManagerConstants.MAX_LAST_NAME_LENGTH)]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         [Display(Name = "Email Address")]
         [Required(ErrorMessage = "Email Address is required")]
