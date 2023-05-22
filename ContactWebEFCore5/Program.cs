@@ -2,6 +2,8 @@ using ContactWebEFCore5.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyContactManagerData;
+using MyContactManagerRepositories;
+using MyContactManagerServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +17,16 @@ builder.Services.AddDbContext<MyContactManagerDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IStatesRepository, StatesRepository>();
+builder.Services.AddScoped<IStatesService, StatesService>();
+builder.Services.AddScoped<IContactsRepository, ContactsRepository>();
+builder.Services.AddScoped<IContactsServices, ContactsService>();
+builder.Services.AddScoped<IUserRolesService, UserRolesService>();
+//builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
 
 var app = builder.Build();
 
